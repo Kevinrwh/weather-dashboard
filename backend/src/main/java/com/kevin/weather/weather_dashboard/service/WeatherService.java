@@ -7,15 +7,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.json.JSONObject;
 
-// Annotation marking the class as a service component in the Spring context.
-// making it eligible for component scanning and dependency injection.
-
+/**
+ * Service for retrieving weather data from the OpenWeatherMap API.
+ * This service handles external API calls and data transformation for weather information.
+ */
 @Service
 public class WeatherService {
 
+  /**
+   * API key for OpenWeatherMap API, injected from application properties.
+   */
   @Value("${weather.api.key}")
   private String apiKey;
 
+  /**
+   * Retrieves current weather information for a specified city.
+   * 
+   * @param city the name of the city to get weather information for
+   * @return WeatherResponseDTO containing the city name, temperature, and weather description
+   * @throws org.springframework.web.client.RestClientException if the API call fails
+   */
   public WeatherResponseDTO getWeather(String city) {
     String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=metric";
     RestTemplate restTemplate = new RestTemplate();
