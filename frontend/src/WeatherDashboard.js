@@ -1,22 +1,29 @@
+
 import React, { useState, useEffect } from 'react';
+
 
 function WeatherDashboard() {
   const [city, setCity] = useState('London');
   const [input, setInput] = useState('');
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Fetch weather for the current city
   const fetchWeather = async (cityName) => {
     try {
       setError(null);
-      const response = await fetch(`http://localhost:8080/weather?city=${encodeURIComponent(cityName)}`);
+      setLoading(true);
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+      const response = await fetch(`${apiUrl}/weather?city=${encodeURIComponent(cityName)}`);
       if (!response.ok) throw new Error('City not found or backend error');
       const data = await response.json();
       setWeather(data);
     } catch (err) {
       setWeather(null);
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,15 +52,20 @@ function WeatherDashboard() {
           placeholder="Enter city"
           style={{ padding: '0.5rem', width: '70%' }}
         />
-        <button type="submit" style={{ padding: '0.5rem', marginLeft: '0.5rem' }}>Get Weather</button>
+        <button type="submit" style={{ padding: '0.5rem', marginLeft: '0.5rem' }} disabled={!input.trim() || loading}>
+          {loading ? 'Loading...' : 'Get Weather'}
+        </button>
       </form>
+      {loading && <div>Loading weather data...</div>}
       {error && <div style={{ color: 'red' }}>{error}</div>}
-      {weather && weather.name && (
+      {weather && weather.city ? (
         <div>
-          <h2>{weather.name}</h2>
-          <p>Temperature: {weather.main.temp}K</p>
-          <p>Weather: {weather.weather[0].description}</p>
+          <h2>{weather.city}</h2>
+          <p>Temperature: {weather.temperature}°C</p>
+          <p>Weather: {weather.description}</p>
         </div>
+      ) : (
+        !loading && !error && <div>No weather data available.</div>
       )}
     </div>
   );
