@@ -1,40 +1,55 @@
 # Weather Dashboard
 
-This is a Spring Boot application that fetches and displays weather data using the OpenWeatherMap API.
+This is a full-stack weather dashboard application with a Java Spring Boot backend and a React frontend.
 
-## Prerequisites
+## Features
+- View current weather for London by default
+- Search for weather in any city
+- Responsive, user-friendly dashboard
 
-- Java 22
-- Maven
-- An OpenWeatherMap API key
+## Project Structure
 
-## Installation
+- `backend/` — Java Spring Boot REST API
+- `frontend/` — React app UI
 
-1. Clone the repository:
+## Setup Instructions
 
-   ```bash
-   git clone https://github.com/your-username/weather-dashboard.git
-   cd weather-dashboard
+### Prerequisites
+- Java 22 (for backend)
+- Node.js 18.20.0+ and npm (for frontend)
+- OpenWeatherMap API key (https://openweathermap.org/)
 
-2. Get a OpenWeatherMap API key:
-
-    Navigate to https://openweathermap.org/ and sign up to get an API key.
-
-3. Set up your API key environment variable:
-    On MacOS/Linux
+### Backend Setup
+1. `cd backend`
+2. Set your API key as an environment variable:
     ```bash
-   # On MacOS/Linux
     export WEATHER_API_KEY=your_actual_api_key
-   
-   # On Windows
-    export WEATHER_API_KEY=your_actual_api_key
+    ```
+3. Start the backend:
+    ```bash
+    ./mvnw spring-boot:run
+    ```
+    The backend will run on http://localhost:8080
+
+### Frontend Setup
+1. `cd frontend`
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+3. Start the frontend:
+    ```bash
+    npm start
+    ```
+    The frontend will run on http://localhost:3000
 
 ## Usage
-1. Run the application.
-    Type http://localhost:8080/weather?city=CityName into your browser. Replace CityName with the city you'd like to get weather information for.
+1. Open http://localhost:3000 in your browser.
+2. The dashboard will show London weather by default.
+3. Enter a city name and click "Get Weather" to view weather for any city.
 
 ## Contributing
 If you would like to contribute to this project, fork the project, and submit a pull request.
 
-## Licensing
+## License
 This project is licensed under the MIT license.

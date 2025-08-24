@@ -7,28 +7,47 @@ target/
 ### STS ###
 .apt_generated
 .classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# Root .gitignore for weather-dashboard monorepo
+
+# Backend build artifacts
+backend/target/
+backend/.apt_generated
+backend/.classpath
+backend/.factorypath
+backend/.project
+backend/.settings
+backend/.springBeans
+backend/.sts4-cache
+backend/nbbuild/
+backend/nbdist/
+backend/nbproject/
+backend/.nb-gradle/
+backend/build/
+backend/dist/
+backend/generated-sources/
+backend/generated-test-sources/
+backend/maven-status/
+backend/test-classes/
+backend/classes/
+backend/main/
+backend/test/
+
+# Frontend build artifacts and dependencies
+frontend/node_modules/
+frontend/build/
+frontend/coverage/
+
+# OS/IDE files
+.DS_Store
+.idea/
+.vscode/
 *.iml
 *.ipr
+*.iws
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# Environment files
+frontend/.env*
 
-### VS Code ###
-.vscode/
-.DS_Store
+# Logs
+npm-debug.log*
