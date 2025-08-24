@@ -1,6 +1,11 @@
 package com.kevin.weather.weather_dashboard.controller;
 
 import com.kevin.weather.weather_dashboard.service.WeatherService;
+import com.kevin.weather.weather_dashboard.dto.WeatherResponseDTO;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +33,12 @@ public class WeatherController {
   // get the weather data for the specified city, and returns the data as a response.
   // Define an endpoint to get weather data for a given city.
   @GetMapping("/weather")
-  public String getWeather(@RequestParam String city) {
-    // Call the WeatherService to get the Weather data.
-    return weatherService.getWeather(city);
+  public ResponseEntity<?> getWeather(@RequestParam String city) {
+    try {
+      WeatherResponseDTO weather = weatherService.getWeather(city);
+      return ResponseEntity.ok(weather);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("City not found or backend error");
+    }
   }
 }
